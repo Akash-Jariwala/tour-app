@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const dotenv = require(`dotenv`);
 // const cors = require('cors');
 
-const { doc } = require("prettier");
+// const { doc } = require("prettier");
 // console.log(process.env);
 
 process.on('uncaughtException', err => {
