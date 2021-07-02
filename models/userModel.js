@@ -98,7 +98,8 @@ userSchema.methods.createPasswordResetToken = function() {
    .update(resetToken)
    .digest('hex');  // "crypto is a default package of Nodejs"
     // console.log('work 3');
-    console.log({resetToken}, this.PasswordResetToken);
+    
+    // console.log({resetToken}, this.PasswordResetToken);
 
    this.PasswordResetExpires = Date.now() + 10 * 60 * 1000;
 

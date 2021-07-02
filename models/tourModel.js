@@ -196,12 +196,12 @@ tourSchema.pre('findOne', function(next){
 });
 
 
-tourSchema.post(/^find/, function(docs,next){         // ^find means: All the strings atarting from "find".
+// tourSchema.post(/^find/, function(docs,next){         // ^find means: All the strings atarting from "find".
   // console.log(`Query took ${Date.now() - this.start} millisecond!`); 
   // console.log(docs);
 
-    next();
-});
+//     next();
+// });
 
 //AGGREGATION MIDDLEWARE
 // tourSchema.pre('aggregate', function(next){

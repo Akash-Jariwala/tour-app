@@ -18,6 +18,7 @@ const mongosanitize = require('express-mongo-sanitize');
 const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
+const compression = require('compression');
 
 // 1st step to implement pug template
 app.set('view engine', 'pug');
@@ -91,6 +92,8 @@ app.use(hpp({
 //   console.log("Hello from middleware...");
 //   next();
 // });
+
+app.use(compression());
 
 // TEST MIDDLEWARE
 app.use((req, res, next) => {
