@@ -54,7 +54,7 @@ exports.createBookingCheckout = catchAsync(async(req, res, next) => {
     res.redirect(req.originalUrl.split('?')[0]);
 
     const url = `${req.protocol}://${req.get('host')}/me`;
-    // await new Email(url, userEmail).sendPaymentSuccess();
+    await new Email(url, userEmail).sendPaymentSuccess();
 });
 
 exports.createBooking = factory.createOne(Booking);

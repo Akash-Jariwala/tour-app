@@ -116,7 +116,7 @@ module.exports = class Email{
     newTransport() {
         if( process.env.NODE_ENV === 'development'){
             return nodemailer.createTransport({
-                service: 'smtp.gmail.com',
+                service: 'gmail',
                 auth: {
                     user: process.env.EMAIL,
                     pass: process.env.PASSWORD
