@@ -19,6 +19,7 @@ const xss = require('xss-clean');
 const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
+const cors = require('cors');
 
 
 app.enable('trust proxy');
@@ -40,6 +41,12 @@ router.param("id", (req, res, next, val) => {
 });
 
 // 1. GLOBALMIDDLEWARES
+
+// implement cors
+app.use(cors());
+
+app.options('*', cors());
+
 // set security HTTP 
 app.use(helmet());    // put it in beginning 
 
