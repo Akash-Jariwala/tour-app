@@ -6,7 +6,7 @@ export const signup = async (name, email, password, passwordConfirm) => {
    try{
         const res = await axios({           //refer for axios: https://www.npmjs.com/package/axios
             method: 'POST',
-            url: 'http://127.0.0.1:4000/api/v1/users/signup',
+            url: '/api/v1/users/signup',
             data: {
                 name,
                 email,
@@ -17,7 +17,7 @@ export const signup = async (name, email, password, passwordConfirm) => {
         // const resStatus = JSON.stringify(res.data.status);
         // console.log(res.data.status);        
         if(res.data.status === 'Success'){
-            console.log('You signed up successfully!! ');
+            // console.log('You signed up successfully!! ');
             showAlert('success', 'Signed Up successfully!');
 
             window.setTimeout(() => {
