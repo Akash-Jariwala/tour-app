@@ -14,18 +14,15 @@ const signToken = id => {
     });
 };               
 
-const createSendToken = (user, statusCode, res) => {
+const createSendToken = (user, statusCode, req, res) => {
     const token = signToken(user._id);      // id will be created by Mongoose itself.
 
-    const cookiOptions = {
+    res.cookie('jwt', token, {
         expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 *1000),
-        httpOnly: true          // cookies can not be modified/accessed by the browser ( prevent cross site scriptonh attacks)
+        httpOnly: true, 
+        secure: req.secure || req.headers['x-forwarded-proto'] === 'https'          // cookies can not be modified/accessed by the browser ( prevent cross site scriptonh attacks)
         // httpOnly means: receive the cookie, store it, and then send it automaticaaly along with every request
-    }
-
-    if( process.env.NODE_ENV === 'production') cookiOptions.secure = true;
-
-    res.cookie('jwt', token, cookiOptions);     //refer: https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
+    });     //refer: https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
 
 
     // Remove the password from the output
@@ -52,7 +49,7 @@ exports.signup = catchAsync(async(req, res, next) => {  //user.creates takes obj
     // await new Email(newUser, url).sendWelcome();
     await new Email(url, userEmail).sendWelcome();
     
-    createSendToken(newUser, 201, res);
+    createSendToken(newUser, 201, req, res);
 
     // {
     //     name: req.body.name,
@@ -90,7 +87,7 @@ exports.login = catchAsync(async (req, res, next) => {
         return next(new AppError('incorrect email or password', 401));  // code 401: "unauthorised"
     }
     // 3) if everything ok, send token to client 
-    createSendToken(user, 200, res);
+    createSendToken(user, 200, req, res);
     // const token = signToken(user._id);
 
     // res.status(200).json({
@@ -248,7 +245,7 @@ exports.resetPassword = catchAsync(async (req, res, next) => {
 
 
     // 4) Log the user in, set JWT
-    createSendToken(user, 200, res);
+    createSendToken(user, 200, req, res);
     // const token = signToken(user._id);
 
     // res.status(200).json({
@@ -275,6 +272,6 @@ exports.updatePassword = catchAsync(async (req, res, next) => {
     await user.save();
 
     // 4) Log user in, send JWT 
-    createSendToken(user, 200, res);
+    createSendToken(user, 200, req, res);
     
 });

@@ -20,6 +20,9 @@ const hpp = require('hpp');
 const cookieParser = require('cookie-parser');
 const compression = require('compression');
 
+
+app.enable('trust proxy');
+
 // 1st step to implement pug template
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views')); // It will create a path joining the directory name /views. we use it coz, it does not care about slash in the path that can create bug. coz, Node automatically creates correct path.
